@@ -17,6 +17,11 @@ import java.util.Map;
 @RestController
 public class HealthController {
 
+    /**
+     * Handle HTTP request for health check.
+     *
+     * @return
+     */
     @RequestMapping(value = "/health/check", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> check() {
         Map<String, Object> result = new HashMap<>();

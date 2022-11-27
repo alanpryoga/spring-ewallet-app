@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,24 @@ public class CustomerController {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * Handle HTTP request for get list of customer.
+     *
+     * @return
+     */
+    @RequestMapping(value = "/customer/list", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> list() {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("status", "ok");
+        result.put("message", "success");
+
+        List<User> listCustomer = userService.list(UserType.CUSTOMER);
+        result.put("data", listCustomer);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
     /**
      * Handle HTTP request for register new customer.
