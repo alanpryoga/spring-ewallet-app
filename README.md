@@ -1,5 +1,5 @@
 # Spring eWallet App
-Project aplikasi backend service berbasis REST untuk studi kasus eWallet app. Project ini tidak untuk digunakan untuk lingkungan produksi, hanya untuk sebuah demo implementasi menggunakan Java Spring.
+Project aplikasi backend service berbasis REST untuk studi kasus eWallet app. Project ini tidak untuk digunakan pada lingkungan produksi, hanya untuk sebuah demo implementasi menggunakan Java Spring.
 
 ## Prasyarat
 Install beberapa tools berikut pada komputer lokal:
@@ -9,7 +9,7 @@ Install beberapa tools berikut pada komputer lokal:
 
 ## Persiapan
 1. Build wallet-service dengan menjalankan perintah `mvn package -Dmaven.test.skip` pada directory wallet-service.
-2. Buat docker container dengan menjalankan perintah `docker compose up`.
+2. Buat dan jalankan docker container dengan menjalankan perintah `docker compose up`.
 3. Cek service dengan mengakses URL `http://localhost:8080/health/check`.
 
 ## Service
