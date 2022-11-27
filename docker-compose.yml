@@ -1,18 +1,13 @@
 version: '3.8'
 services:
-  zookeeper:
-    image: wurstmeister/zookeeper
+  wallet-cache:
+    image: redis:6.2-alpine
+    restart: always
     ports:
-      - "2181:2181"
-
-  kafka:
-    image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - wallet-cache:/data
 
   wallet-db:
     image: postgres:15.1-alpine3.16
@@ -31,12 +26,18 @@ services:
     ports:
       - '8080:8080'
     depends_on:
+      - wallet-cache
       - wallet-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://wallet-db:5432/wallet
       - SPRING_DATASOURCE_USERNAME=wallet
       - SPRING_DATASOURCE_PASSWORD=super_secret
+      - SPRING_CACHE_TYPE=redis
+      - SPRING_REDIS_HOST=wallet-cache
+      - SPRING_REDIS_PORT=6379
 
 volumes:
+  wallet-cache:
+    driver: local
   wallet-db:
     driver: local

@@ -9,6 +9,8 @@ public interface UserService {
 
     List<User> list(UserType userType);
 
+    User detail(int userId);
+
     int create(User user);
 
 }
